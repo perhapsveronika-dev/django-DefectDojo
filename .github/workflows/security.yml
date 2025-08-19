@@ -24,7 +24,20 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install bandit
+        
+    - name: Install Safety
+      run: pip install safety
+
+    - name: Run Safety check
+      run: |
+        safety check || true
 
     - name: Run Bandit
       run: |
         bandit -r dojo -f html -o bandit-report.html || true
+        
+    - name: Upload Bandit report
+      uses: actions/upload-artifact@v4
+      with:
+        -name: bandit-report
+        path: bandit-report.html
