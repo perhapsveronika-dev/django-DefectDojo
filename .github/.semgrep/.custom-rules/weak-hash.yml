@@ -1,0 +1,8 @@
+rules:
+  - id: python-weak-hash
+    patterns:
+      - pattern: hashlib.md5(...)
+      - pattern: hashlib.sha1(...)
+    message: Используется слабый алгоритм хеширования.
+    languages: [python]
+    severity: WARNING

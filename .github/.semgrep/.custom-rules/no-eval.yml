@@ -1,0 +1,6 @@
+rules:
+  - id: python-no-eval
+    pattern: eval(...)
+    message: Использование eval() опасно. Рассмотри альтернативы.
+    languages: [python]
+    severity: ERROR
