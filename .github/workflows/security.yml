@@ -48,7 +48,7 @@ jobs:
     - name: Run Semgrep (custom rules)
       run: |
           semgrep --config=p/ci \
-                  --config=.semgrep/custom-rules \
+                  --config=.github/.semgrep/custom-rules \
                   --sarif --output semgrep.sarif || true
   
     - name: Upload Semgrep report
