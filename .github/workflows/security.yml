@@ -34,13 +34,13 @@ jobs:
 
     - name: Run Bandit
       run: |
-        bandit -r dojo -f html -o bandit-report.html || true
+        bandit -r dojo -f json -o bandit-report.json || true
         
     - name: Upload Bandit report
       uses: actions/upload-artifact@v4
       with:
         name: bandit-report
-        path: bandit-report.html
+        path: bandit-report.json
 
     - name: Install Semgrep
       run: pip install semgrep
@@ -49,21 +49,21 @@ jobs:
       run: |
           semgrep --config=p/ci \
                   --config=.github/.semgrep/custom-rules \
-                  --sarif --output semgrep.sarif || true
+                  --json --output semgrep.json || true
   
     - name: Upload Semgrep report
       uses: actions/upload-artifact@v4
       with:
           name: semgrep-report
-          path: semgrep.sarif
+          path: semgrep.json
 
     - name: Run Gitleaks
       uses: gitleaks/gitleaks-action@v2
       with:
-        args: detect --source=. --report-format sarif --report-path=gitleaks.sarif 
+        args: detect --source=. --report-format json --report-path=gitleaks.json 
 
     - name: Upload Gitleaks report
       uses: actions/upload-artifact@v4
       with:
         name: gitleaks-report
-        path: gitleaks.sarif
+        path: gitleaks.json
